@@ -1,0 +1,9 @@
+- hosts: all
+  become: true
+  gather_facts: false
+  vars:
+    shell: /bin/bash
+    asterisk_version: 18.19.0
+    number_of_cpu_cores: 2
+  roles:
+    - role: initial
