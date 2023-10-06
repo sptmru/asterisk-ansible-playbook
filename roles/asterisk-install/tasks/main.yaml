@@ -1,0 +1,56 @@
+- name: Run ./configure
+  remote_user: root
+  shell: ./configure
+  args:
+    chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
+    executable: /bin/bash
+  tags:
+    - asterisk
+- name: Select Asterisk modules
+  remote_user: root
+  shell: make menuselect.makeopts chdir={{ asterisk_src_dir }}
+  args:
+    chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
+    executable: /bin/bash
+  tags:
+    - asterisk
+- name: Build Asterisk
+  remote_user: root
+  shell: "make -j{{ number_of_cpu_cores}}"
+  args:
+    chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
+    executable: /bin/bash
+  tags:
+    - asterisk
+- name: Install Asterisk
+  remote_user: root
+  shell: make install
+  args:
+    chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
+    executable: /bin/bash
+  tags:
+    - asterisk
+- name: Create sample Asterisk config
+  remote_user: root
+  shell: make samples
+  args:
+    chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
+    executable: /bin/bash
+  tags:
+    - asterisk
+- name: Create Asterisk init script
+  remote_user: root
+  shell: make config
+  args:
+    chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
+    executable: /bin/bash
+  tags:
+    - asterisk
+- name: Run ldconfig to update shared libs cache
+  remote_user: root
+  shell: ldconfig
+  args:
+    executable: /bin/bash
+  tags:
+    - asterisk
+    - system
