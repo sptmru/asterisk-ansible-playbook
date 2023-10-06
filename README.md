@@ -7,7 +7,12 @@ I use Asterisk LTS (v18) and Ubuntu Server LTS (v22.04), but I'm pretty sure it'
 
 ## Usage
 
-// TODO
+To install Asterisk on your Ubuntu server using this playbook, you need to:
+
+- install Ansible (`brew install ansible` on macOS, `apt install ansible` on Ubuntu. Please check docs if you're using Windows — or just install Ansible into WSL)
+- update variables (Asterisk version, number of CPU cores) in `playbook.yaml` if you need it
+- add the IP addresses of your servers to `inventory.yaml`
+- run playbook this way: `ansible-playbook playbook.yaml -i inventory.yaml`
 
 ## Contact
 
