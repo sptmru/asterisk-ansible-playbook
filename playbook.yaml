@@ -8,3 +8,4 @@
   roles:
     - role: initial
     - role: asterisk-prepare
+    - role: asterisk-install
