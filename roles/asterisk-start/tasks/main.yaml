@@ -1,0 +1,16 @@
+- name: Start Asterisk service
+  remote_user: root
+  ansible.builtin.systemd:
+    state: started
+    name: asterisk
+  tags:
+    - asterisk
+    - system
+- name: Enable Asterisk service
+  remote_user: root
+  ansible.builtin.systemd:
+    enabled: true
+    name: asterisk
+  tags:
+    - asterisk
+    - system

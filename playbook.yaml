@@ -10,3 +10,4 @@
     - role: asterisk-prepare
     - role: asterisk-install
     - role: asterisk-configure
+    - role: asterisk-start
