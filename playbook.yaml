@@ -7,3 +7,4 @@
     number_of_cpu_cores: 2
   roles:
     - role: initial
+    - role: asterisk-prepare
