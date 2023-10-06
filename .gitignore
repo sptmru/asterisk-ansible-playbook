@@ -15,3 +15,7 @@ $RECYCLE.BIN
 
 # Ansible
 *.retry
+
+# Ansible-lint
+.python-version
+ansible-lint-venv
