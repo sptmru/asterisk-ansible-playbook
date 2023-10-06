@@ -23,7 +23,7 @@
     - asterisk
 - name: Install Asterisk dependencies
   remote_user: root
-  shell: ./contrib/scripts/install_prereq install
+  shell: export DEBIAN_FRONTEND=noninteractive && ./contrib/scripts/install_prereq install
   args:
     chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
     executable: /bin/bash
