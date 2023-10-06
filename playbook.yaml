@@ -9,3 +9,4 @@
     - role: initial
     - role: asterisk-prepare
     - role: asterisk-install
+    - role: asterisk-configure

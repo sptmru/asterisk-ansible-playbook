@@ -1,0 +1,43 @@
+- name: Add Asterisk user
+  remote_user: root
+  shell: adduser --system --group --home /var/lib/asterisk --no-create-home --gecos "Asterisk PBX" asterisk
+  args:
+    executable: /bin/bash
+  tags:
+    - asterisk
+    - system
+- name: Add Asterisk user to "dialout" and "audio" groups
+  remote_user: root
+  shell: usermod -a -G dialout,audio asterisk
+  args:
+    executable: /bin/bash
+  tags:
+    - asterisk
+    - system
+- name: Configure Asterisk to run as user "asterisk"
+  remote_user: root
+  blockinfile:
+    path: /etc/default/asterisk
+    block: |
+      AST_USER="asterisk"
+      AST_GROUP="asterisk"
+    backup: yes
+  tags:
+    - asterisk
+    - system
+- name: Change owner of Asterisk-related files and directories
+  remote_user: root
+  shell: "chown -R asterisk: /var/{lib,log,run,spool}/asterisk /usr/lib/asterisk /etc/asterisk"
+  args:
+    executable: /bin/bash
+  tags:
+    - asterisk
+    - system
+- name: Change permissions of Asterisk-related files and directories
+  remote_user: root
+  shell: "chmod -R 750 /var/{lib,log,run,spool}/asterisk /usr/lib/asterisk /etc/asterisk"
+  args:
+    executable: /bin/bash
+  tags:
+    - asterisk
+    - system
