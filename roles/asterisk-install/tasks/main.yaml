@@ -8,7 +8,7 @@
     - asterisk
 - name: Select Asterisk modules
   remote_user: root
-  shell: make menuselect.makeopts chdir={{ asterisk_src_dir }}
+  shell: make menuselect.makeopts
   args:
     chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
     executable: /bin/bash
