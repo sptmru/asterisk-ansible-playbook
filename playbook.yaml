@@ -5,6 +5,12 @@
     shell: /bin/bash
     asterisk_version: 18.19.0
     number_of_cpu_cores: 2
+    fail2ban_loglevel: 3
+    fail2ban_logtarget: /var/log/fail2ban.log
+    fail2ban_socket: /var/run/fail2ban/fail2ban.sock
+    failban_ignoreip: 127.0.0.1/8 ::1 4.3.2.1
+    asterisk_external_ip: 2.4.6.8
+    asterisk_localnet: 10.0.0.0/8
   roles:
     - role: initial
     - role: asterisk-prepare

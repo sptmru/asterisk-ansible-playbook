@@ -41,3 +41,22 @@
   tags:
     - asterisk
     - system
+- name: Configure Asterisk UDP Transport
+  remote_user: root
+  blockinfile:
+    path: /etc/asterisk/pjsip.conf
+    block: |
+      [0.0.0.0-udp]
+      type=transport
+      protocol=udp
+      bind=0.0.0.0:5060
+      external_media_address={{ asterisk_external_ip }}
+      external_signaling_address={{ asterisk_external_ip }}
+      allow_reload=no
+      tos=cs3
+      cos=3
+      local_net={{ asterisk_localnet }}
+  with_items:
+    "{{ ip_addresses }}"
+  tags:
+    - system
