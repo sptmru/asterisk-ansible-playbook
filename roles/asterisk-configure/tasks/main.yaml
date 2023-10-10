@@ -56,7 +56,5 @@
       tos=cs3
       cos=3
       local_net={{ asterisk_localnet }}
-  with_items:
-    "{{ ip_addresses }}"
   tags:
-    - system
+    - asterisk
