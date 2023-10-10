@@ -1,0 +1,16 @@
+- name: Start Fail2Ban service
+  remote_user: root
+  ansible.builtin.systemd:
+    state: started
+    name: asterisk
+  tags:
+    - fail2ban
+    - system
+- name: Enable Fail2Ban service
+  remote_user: root
+  ansible.builtin.systemd:
+    enabled: true
+    name: asterisk
+  tags:
+    - fail2ban
+    - system

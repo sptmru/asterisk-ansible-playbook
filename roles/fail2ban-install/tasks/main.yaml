@@ -1,0 +1,10 @@
+- name: Install Fail2Ban
+  remote_user: root
+  apt:
+    pkg:
+      - fail2ban
+    state: latest
+    update_cache: true
+  tags:
+    - fail2ban
+    - system
