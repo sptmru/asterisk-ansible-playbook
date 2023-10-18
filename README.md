@@ -15,6 +15,7 @@ To install Asterisk on your Ubuntu server using this playbook, you need to:
 - install Ansible "community.general" collection: `ansible-galaxy collection install community.general`
 - run playbook this way: `ansible-playbook playbook.yaml -i inventory.yaml`
 
+Once it's done, you'll have Asterisk PBX, Fail2Ban and FreePBX installed on your server.
 If you don't need Fail2Ban or FreePBX, you can comment out the corresponding roles in `playbook.yaml`.
 
 ## Contact
