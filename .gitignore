@@ -23,4 +23,5 @@ ansible-lint-venv
 # Ansible
 inventory-local.yaml
 playbook-local.yaml
+collections/*
 ```
