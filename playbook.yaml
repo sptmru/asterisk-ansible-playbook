@@ -12,7 +12,7 @@
     asterisk_external_ip: 2.4.6.8
     asterisk_localnet: 10.0.0.0/8
 #    if you need any of the modules that are not included by default, add these modules here like that: --enable chan_sip --enable res_http_websocket
-    asterisk_enable_modules: --enable res_ari
+    asterisk_enable_modules: --enable res_ari --enable chan_mobile --enable chan_ooh323 --enable format_mp3 --enable core-sounds-en-wav --enable moh-opsound-wav --enable extra-sounds-en-wav
   roles:
     - role: initial
     - role: asterisk-prepare
