@@ -45,17 +45,21 @@
     - system
     - apt
     - apache2
+    - freepbx
 - name: Change Apache2 user and group to "asterisk"
   remote_user: root
-  shell: sed -i 's/^(User|Group).*/\1 asterisk/' /etc/apache2/apache2.conf
-  args:
-    executable: /bin/bash
+  blockinfile:
+    path: /etc/apache2/apache2.conf
+    block: |
+      User asterisk
+      Group asterisk
+    backup: yes
   tags:
-    - apache2
+    - asterisk
     - system
 - name: Enable AllowOverride in Apache2 configuration
   remote_user: root
-  shell: sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+  raw: sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
   args:
     executable: /bin/bash
   tags:
@@ -63,17 +67,17 @@
     - system
 - name: Set max upload file size to 120M in Apache2 PHP module configuration
   remote_user: root
-  shell: sed -i 's/(^upload_max_filesize = )./\120M/' /etc/php/7.2/apache2/php.ini
-  args:
-    executable: /bin/bash
+  lineinfile:
+    path: /etc/php/7.2/apache2/php.ini
+    line: upload_max_filesize = 120M
   tags:
     - apache2
     - system
 - name: Set max upload file size to 120M in PHP CLI module configuration
   remote_user: root
-  shell: sed -i 's/(^upload_max_filesize = )./\120M/' /etc/php/7.2/cli/php.ini
-  args:
-    executable: /bin/bash
+  lineinfile:
+    path: /etc/php/7.2/cli/php.ini
+    line: upload_max_filesize = 120M
   tags:
     - apache2
     - system
@@ -94,3 +98,18 @@
   systemd:
     state: restarted
     name: apache2
+- name: Download FreePBX source code
+  remote_user: root
+  get_url:
+    url: "http://mirror.freepbx.org/modules/packages/freepbx/freepbx-{{ freepbx_version }}-latest.tgz"
+    dest: "/usr/local/src"
+  tags:
+    - freepbx
+- name: Unarchive FreePBX source code
+  remote_user: root
+  ansible.builtin.unarchive:
+    copy: false
+    src: "/usr/local/src/freepbx-{{ freepbx_version }}-latest.tgz"
+    dest: /usr/local/src
+  tags:
+    - freepbx
