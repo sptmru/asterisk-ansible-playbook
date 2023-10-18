@@ -1,0 +1,96 @@
+- name: Install software-properties-common
+  remote_user: root
+  apt:
+    pkg:
+      - software-properties-common
+    state: latest
+    update_cache: true
+  tags:
+    - system
+    - apt
+- name: Add Ondrej Sury's PHP PPA
+  remote_user: root
+  apt_repository:
+    validate_certs: no
+    repo: 'ppa:ondrej/php'
+    state: present
+  tags:
+    - system
+    - apt
+- name: Install FreePBX dependencies
+  remote_user: root
+  apt:
+    pkg:
+      - apache2
+      - libapache2-mod-php7.2
+      - mariadb-server
+      - nodejs
+      - php-pear
+      - php7.2
+      - php7.2-bcmath
+      - php7.2-cgi
+      - php7.2-common
+      - php7.2-curl
+      - php7.2-gd
+      - php7.2-imap
+      - php7.2-json
+      - php7.2-mbstring
+      - php7.2-mysql
+      - php7.2-snmp
+      - php7.2-xml
+      - php7.2-zip
+    state: latest
+    update_cache: true
+  tags:
+    - system
+    - apt
+    - apache2
+- name: Change Apache2 user and group to "asterisk"
+  remote_user: root
+  shell: sed -i 's/^(User|Group).*/\1 asterisk/' /etc/apache2/apache2.conf
+  args:
+    executable: /bin/bash
+  tags:
+    - apache2
+    - system
+- name: Enable AllowOverride in Apache2 configuration
+  remote_user: root
+  shell: sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+  args:
+    executable: /bin/bash
+  tags:
+    - apache2
+    - system
+- name: Set max upload file size to 120M in Apache2 PHP module configuration
+  remote_user: root
+  shell: sed -i 's/(^upload_max_filesize = )./\120M/' /etc/php/7.2/apache2/php.ini
+  args:
+    executable: /bin/bash
+  tags:
+    - apache2
+    - system
+- name: Set max upload file size to 120M in PHP CLI module configuration
+  remote_user: root
+  shell: sed -i 's/(^upload_max_filesize = )./\120M/' /etc/php/7.2/cli/php.ini
+  args:
+    executable: /bin/bash
+  tags:
+    - apache2
+    - system
+- name: Enable Apache2 rewrite module
+  remote_user: root
+  apache2_module:
+    state: present
+    name: rewrite
+  tags:
+    - apache2
+    - system
+- name: Enable Apache2 service
+  remote_user: root
+  ansible.builtin.systemd:
+    enabled: true
+    name: apache2
+- name: Restart Apache2 service
+  systemd:
+    state: restarted
+    name: apache2
