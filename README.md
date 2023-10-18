@@ -12,6 +12,7 @@ To install Asterisk on your Ubuntu server using this playbook, you need to:
 - install Ansible (`brew install ansible` on macOS, `apt install ansible` on Ubuntu. Please check docs if you're using Windows — or just install Ansible into WSL)
 - update variables (Asterisk version, number of CPU cores) in `playbook.yaml` if you need it
 - add the IP addresses of your servers to `inventory.yaml`
+- if you're going to install FreePBX, you'll need to install Ansible "community.general" collection: `ansible-galaxy collection install community.general`
 - run playbook this way: `ansible-playbook playbook.yaml -i inventory.yaml`
 
 ## Contact
