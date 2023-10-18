@@ -10,16 +10,25 @@
   remote_user: root
   apt:
     pkg:
-      - build-essential
-      - git-core
-      - subversion
-      - wget
-      - libjansson-dev
-      - sqlite
       - autoconf
       - automake
+      - build-essential
+      - curl
+      - git
+      - git-core
+      - gnupg2
+      - libjansson-dev
       - libncurses5-dev
+      - libnewt-dev
+      - libsqlite3-dev
+      - libssl-dev
       - libtool
+      - libxml2-dev
+      - sqlite
+      - subversion
+      - unzip
+      - uuid-dev
+      - wget
     state: latest
     update_cache: true
   tags:
