@@ -19,3 +19,8 @@ $RECYCLE.BIN
 # Ansible-lint
 .python-version
 ansible-lint-venv
+
+# Ansible
+inventory-local.yaml
+playbook-local.yaml
+```
