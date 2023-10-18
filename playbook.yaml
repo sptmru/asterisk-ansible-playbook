@@ -3,7 +3,7 @@
   gather_facts: false
   vars:
     shell: /bin/bash
-    asterisk_version: 18.19.0
+    asterisk_version: 18.20.0 # TODO: add support of keyword "current" for asterisk_version
     freepbx_version: 15.0
     number_of_cpu_cores: 2
     fail2ban_loglevel: 3
