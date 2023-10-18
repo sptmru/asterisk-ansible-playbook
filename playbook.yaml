@@ -21,3 +21,4 @@
     - role: asterisk-start
     - role: fail2ban-install
     - role: fail2ban-start
+    - role: freepbx-install
