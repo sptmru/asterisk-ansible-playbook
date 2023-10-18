@@ -25,7 +25,6 @@
       - libapache2-mod-php7.2
       - mariadb-server
       - nodejs
-      - php-pear
       - php7.2
       - php7.2-bcmath
       - php7.2-cgi
@@ -113,3 +112,9 @@
     dest: /usr/local/src
   tags:
     - freepbx
+- name: Install FreePBX
+  remote_user: root
+  shell: ./install -n
+  args:
+    chdir: /usr/local/src/freepbx
+    executable: /bin/bash

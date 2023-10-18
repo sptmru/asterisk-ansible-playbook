@@ -10,15 +10,12 @@ I use Asterisk LTS (v18) and Ubuntu Server LTS (v22.04), but I'm pretty sure it'
 To install Asterisk on your Ubuntu server using this playbook, you need to:
 
 - install Ansible (`brew install ansible` on macOS, `apt install ansible` on Ubuntu. Please check docs if you're using Windows — or just install Ansible into WSL)
-- update variables (Asterisk version, number of CPU cores) in `playbook.yaml` if you need it
+- update variables (Asterisk version, number of CPU cores, etc.) in `playbook.yaml` if you need it
 - add the IP addresses of your servers to `inventory.yaml`
-- if you're going to install FreePBX, you'll need to install Ansible "community.general" collection: `ansible-galaxy collection install community.general`
+- install Ansible "community.general" collection: `ansible-galaxy collection install community.general`
 - run playbook this way: `ansible-playbook playbook.yaml -i inventory.yaml`
 
-After that, you'll have Asterisk installed on your server(s). You'll also get Fail2Ban installed and configured.
-About FreePBX: you'll have everything ready for FreePBX installation, but currently you'll need to install it manually (you'll only need to run `/usr/local/src/freepbx/install -n` and follow the instructions.
-
-I'm going to add FreePBX automatic installation to this playbook in the future.
+If you don't need Fail2Ban or FreePBX, you can comment out the corresponding roles in `playbook.yaml`.
 
 ## Contact
 
