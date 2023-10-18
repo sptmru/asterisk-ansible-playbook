@@ -4,6 +4,7 @@
   vars:
     shell: /bin/bash
     asterisk_version: 18.19.0
+    freepbx_version: 15.0
     number_of_cpu_cores: 2
     fail2ban_loglevel: 3
     fail2ban_logtarget: /var/log/fail2ban.log
