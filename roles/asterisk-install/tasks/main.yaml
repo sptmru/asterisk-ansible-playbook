@@ -1,6 +1,6 @@
 - name: Run ./configure
   remote_user: root
-  shell: ./configure
+  shell: ./configure  --with-jansson-bundled --with-pjproject-bundled
   args:
     chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
     executable: /bin/bash
@@ -8,7 +8,7 @@
     - asterisk
 - name: Select Asterisk modules
   remote_user: root
-  shell: make menuselect.makeopts
+  shell: "make menuselect.makeopts && menuselect/menuselect {{ asterisk_enable_modules }} menuselect.makeopts"
   args:
     chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
     executable: /bin/bash

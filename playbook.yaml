@@ -11,6 +11,8 @@
     failban_ignoreip: 127.0.0.1/8 ::1 4.3.2.1
     asterisk_external_ip: 2.4.6.8
     asterisk_localnet: 10.0.0.0/8
+#    if you need any of the modules that are not included by default, add these modules here like that: --enable chan_sip --enable res_http_websocket
+    asterisk_enable_modules: --enable res_ari
   roles:
     - role: initial
     - role: asterisk-prepare
