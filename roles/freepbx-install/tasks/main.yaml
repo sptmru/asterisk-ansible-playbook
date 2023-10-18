@@ -25,6 +25,7 @@
       - libapache2-mod-php7.2
       - mariadb-server
       - nodejs
+      - npm
       - php7.2
       - php7.2-bcmath
       - php7.2-cgi
@@ -38,6 +39,7 @@
       - php7.2-snmp
       - php7.2-xml
       - php7.2-zip
+      - sox
     state: latest
     update_cache: true
   tags:
