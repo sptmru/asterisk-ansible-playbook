@@ -1,8 +1,16 @@
+- name: Check if Asterisk sources directory exists
+  remote_user: root
+  stat:
+    path: "/usr/local/src/asterisk-{{ asterisk_version }}"
+  register: asterisk_sources_check
+  tags:
+    - asterisk
 - name: Download Asterisk source code
   remote_user: root
   ansible.builtin.get_url:
     url: "http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-{{ asterisk_version }}.tar.gz"
     dest: "/usr/local/src"
+  when: not asterisk_sources_check.stat.exists
   tags:
     - asterisk
 - name: Unarchive Asterisk source code
@@ -11,35 +19,35 @@
     copy: false
     src: "/usr/local/src/asterisk-{{ asterisk_version }}.tar.gz"
     dest: /usr/local/src
+  when: not asterisk_sources_check.stat.exists
   tags:
     - asterisk
-- name: Update Asterisk sources directory name — find current name
+- name: Update Asterisk sources directory name — find current directory
   remote_user: root
-  find:
-    paths: "/usr/local/src"
-    patterns: "asterisk-*"
-    file_type: directory
-  register: asterisk_directories
+  shell: "find /usr/local/src -maxdepth 1 -type d -name 'asterisk-*'"
+  register: asterisk_directory
+  when: not asterisk_sources_check.stat.exists
   tags:
     - asterisk
 - name: Update Asterisk sources directory name - rename directory
   remote_user: root
-  file:
-    src: "{{ item.path }}"
-    dest: "/usr/local/src/asterisk-{{ asterisk_version }}"
-    state: link
-  with_items: "{{ asterisk_directories.files }}"
+  shell: "mv {{ asterisk_directory.stdout }} /usr/local/src/asterisk-{{ asterisk_version }}"
+  when: not asterisk_sources_check.stat.exists
+  tags:
+    - asterisk
 - name: Get Asterisk MP3 sources
   remote_user: root
   shell: ./contrib/scripts/get_mp3_source.sh
   args:
     chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
     executable: /bin/bash
+  when: not asterisk_sources_check.stat.exists
   tags:
     - asterisk
 - name: Install Asterisk dependencies
   remote_user: root
   shell: export DEBIAN_FRONTEND=noninteractive && ./contrib/scripts/install_prereq install
+  when: not asterisk_sources_check.stat.exists
   args:
     chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
     executable: /bin/bash
