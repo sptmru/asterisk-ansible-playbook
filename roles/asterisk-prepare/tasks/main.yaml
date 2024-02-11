@@ -23,12 +23,12 @@
   tags:
     - asterisk
 - name: Update Asterisk sources directory name - rename directory
+  remote_user: root
   file:
     src: "{{ item.path }}"
     dest: "/usr/local/src/asterisk-{{ asterisk_version }}"
     state: link
-  loop: "{{ asterisk_directories.files }}"
-  when: item.path | regex_search('asterisk-(.*)') | first == True
+  with_items: "{{ asterisk_directories.files }}"
 - name: Get Asterisk MP3 sources
   remote_user: root
   shell: ./contrib/scripts/get_mp3_source.sh
