@@ -3,7 +3,7 @@
   gather_facts: false
   vars:
     shell: /bin/bash
-    asterisk_version: 18.20.0 # TODO: add support of keyword "current" for asterisk_version
+    asterisk_version: 20-current
     freepbx_version: 15.0
     number_of_cpu_cores: 2
     fail2ban_loglevel: 3
@@ -12,7 +12,7 @@
     failban_ignoreip: 127.0.0.1/8 ::1 4.3.2.1
     asterisk_external_ip: 2.4.6.8
     asterisk_localnet: 10.0.0.0/8
-#    if you need any of the modules that are not included by default, add these modules here like that: --enable chan_sip --enable res_http_websocket
+    # if you need any of the modules that are not included by default, add these modules here like that: --enable chan_sip --enable res_http_websocket
     asterisk_enable_modules: --enable res_ari --enable chan_mobile --enable chan_ooh323 --enable format_mp3 --enable core-sounds-en-wav --enable moh-opsound-wav --enable extra-sounds-en-wav
   roles:
     - role: initial

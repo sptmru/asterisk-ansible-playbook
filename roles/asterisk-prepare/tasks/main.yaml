@@ -12,7 +12,23 @@
     src: "/usr/local/src/asterisk-{{ asterisk_version }}.tar.gz"
     dest: /usr/local/src
   tags:
-  - asterisk
+    - asterisk
+- name: Update Asterisk sources directory name — find current name
+  remote_user: root
+  find:
+    paths: "/usr/local/src"
+    patterns: "asterisk-*"
+    file_type: directory
+  register: asterisk_directories
+  tags:
+    - asterisk
+- name: Update Asterisk sources directory name - rename directory
+  file:
+    src: "{{ item.path }}"
+    dest: "/usr/local/src/asterisk-{{ asterisk_version }}"
+    state: link
+  loop: "{{ asterisk_directories.files }}"
+  when: item.path | regex_search('asterisk-(.*)') | first == True
 - name: Get Asterisk MP3 sources
   remote_user: root
   shell: ./contrib/scripts/get_mp3_source.sh
