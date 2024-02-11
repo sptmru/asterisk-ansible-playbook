@@ -1,0 +1,39 @@
+{
+  "variables": {
+    "ansible_playbook_dir": "../",
+    "ansible_playbook_file": "../playbook-docker.yaml",
+    "ansible_version": "2.10.7",
+    "docker_base_image": "jrei/systemd-ubuntu",
+    "docker_image_version": "{{env `IMAGE_VERSION`}}"
+  },
+  "builders":[{
+    "type": "docker",
+    "image": "{{user `docker_base_image`}}",
+    "commit": true
+  }],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "../build-scripts/install-ansible.sh",
+      "environment_vars": [
+        "ANSIBLE_VERSION={{user `ansible_version`}}"
+      ]
+    },
+    {
+      "type": "ansible-local",
+      "playbook_dir": "{{user `ansible_playbook_dir`}}",
+      "playbook_file": "{{user `ansible_playbook_file`}}"
+    },
+    {
+      "type": "shell",
+      "script": "../build-scripts/cleanup.sh"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "docker-tag",
+      "repository": "sptmru/asterisk",
+      "tag": "{{user `docker_image_version`}}"
+    }
+  ]
+}
