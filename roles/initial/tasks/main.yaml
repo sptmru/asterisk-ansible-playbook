@@ -29,6 +29,8 @@
       - unzip
       - uuid-dev
       - wget
+      - ncdu
+      - vim
     state: latest
     update_cache: true
   tags:

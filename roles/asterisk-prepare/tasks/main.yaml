@@ -46,3 +46,13 @@
   tags:
     - asterisk
     - system
+- name: Install sngrep
+  remote_user: root
+  apt:
+    pkg:
+      - sngrep
+    state: latest
+    update_cache: true
+  tags:
+    - asterisk
+    - apt
