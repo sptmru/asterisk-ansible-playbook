@@ -11,8 +11,16 @@
   template: src={{ item }}.j2 dest=/{{ item }}
   with_items:
     - etc/fail2ban/jail.local
-  notify:
-    - restart fail2ban
   tags:
     - asterisk
     - fail2ban
+- name: Restart Asterisk service
+  remote_user: root
+  systemd:
+    state: restarted
+    name: asterisk
+- name: Restart Fail2ban service
+  remote_user: root
+  systemd:
+    state: restarted
+    name: fail2ban
