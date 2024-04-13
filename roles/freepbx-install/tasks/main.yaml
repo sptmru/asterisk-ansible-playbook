@@ -96,6 +96,7 @@
     enabled: true
     name: apache2
 - name: Restart Apache2 service
+  remote_user: root
   systemd:
     state: restarted
     name: apache2
