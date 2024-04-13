@@ -24,7 +24,7 @@
       - libssl-dev
       - libtool
       - libxml2-dev
-      - sqlite
+      - sqlite3
       - subversion
       - unzip
       - uuid-dev
