@@ -8,5 +8,5 @@ ignoreip = {{ fail2ban_ignoreip }}
 enabled = true
 filter = asterisk
 action_  = %(default/action_)s[name=%(__name__)s-tcp, protocol="tcp"]
-%(default/action_)s[name=%(__name__)s-udp, protocol="udp"]
+           %(default/action_)s[name=%(__name__)s-udp, protocol="udp"]
 logpath = /var/log/asterisk/fail2ban
